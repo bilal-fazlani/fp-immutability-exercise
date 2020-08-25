@@ -3,19 +3,19 @@ package com.example
 import com.example.ingredients._
 import munit.FunSuite
 
-class CookingTest extends FunSuite {
+class Cooking1Test extends FunSuite {
   test("makeTiramisu should return Tiramisu") {
-    val eggs = new Eggs
-    val sugar1 = new Sugar
-    val wine = new Wine
-    val cheese = new Cheese
-    val cream = new Cream
-    val fingers = new Fingers
-    val espresso = new Espresso
-    val sugar2 = new Sugar
-    val cocoa = new Cocoa
+    val eggs = Eggs()
+    val sugar1 = Sugar()
+    val wine = Wine()
+    val cheese = Cheese()
+    val cream = Cream()
+    val fingers = Fingers()
+    val espresso = Espresso()
+    val sugar2 = Sugar()
+    val cocoa = Cocoa()
 
-    val tiramisu = Cooking.makeTiramisu(
+    val tiramisu = Cooking1.makeTiramisu(
       eggs,
       sugar1,
       wine,

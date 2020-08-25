@@ -3,16 +3,16 @@ package com.example
 import com.example.ingredients._
 
 object Main extends App {
-  val tiramisu = Cooking.makeTiramisu(
-    new Eggs,
-    new Sugar,
-    new Wine,
-    new Cheese,
-    new Cream,
-    new Fingers,
-    new Espresso,
-    new Sugar,
-    new Cocoa
+  val tiramisu = Cooking1.makeTiramisu(
+    Eggs(),
+    Sugar(),
+    Wine(),
+    Cheese(),
+    Cream(),
+    Fingers(),
+    Espresso(),
+    Sugar(),
+    Cocoa()
   )
   println(tiramisu)
 }
