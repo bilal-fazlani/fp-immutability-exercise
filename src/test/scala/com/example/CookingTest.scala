@@ -1,6 +1,5 @@
 package com.example
 
-import com.example.ingredients._
 import munit.FunSuite
 
 class CookingTest extends FunSuite {
