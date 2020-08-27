@@ -3,7 +3,7 @@ package com.example
 import com.example.ingredients._
 import munit.FunSuite
 
-class Cooking1Test extends FunSuite {
+class CookingTest extends FunSuite {
   test("makeTiramisu should return Tiramisu") {
     val eggs = Eggs()
     val sugar1 = Sugar()
@@ -15,7 +15,7 @@ class Cooking1Test extends FunSuite {
     val sugar2 = Sugar()
     val cocoa = Cocoa()
 
-    val tiramisu = Cooking1.makeTiramisu(
+    val tiramisu = Cooking.makeTiramisu(
       eggs,
       sugar1,
       wine,
@@ -35,11 +35,18 @@ class Cooking1Test extends FunSuite {
     assertEquals(tiramisu.whisked, true)
     assertEquals(tiramisu.refrigerated, true)
 
-    assert(tiramisu.assembledFingers.contains(fingers))
-    assert(tiramisu.beatCheese.contains(cheese))
-    assert(tiramisu.beatSugar.contains(sugar1))
-    assert(tiramisu.beatWine.contains(wine))
-    assert(tiramisu.foldedCream.contains(cream))
-    assert(tiramisu.siftedCocoa.contains(cocoa))
+    assert(
+      tiramisu.assembledFingers.contains(
+        Fingers(soakedWithEspresso = true, Some(espresso))))
+
+    assert(tiramisu.beatCheese.contains(Cheese(beat = true)))
+
+    assert(tiramisu.beatSugar.contains(Sugar()))
+
+    assert(tiramisu.beatWine.contains(Wine()))
+
+    assert(tiramisu.foldedCream.contains(Cream(whipped = true)))
+
+    assert(tiramisu.siftedCocoa.contains(Cocoa()))
   }
 }

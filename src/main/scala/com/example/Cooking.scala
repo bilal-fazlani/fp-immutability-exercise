@@ -2,7 +2,7 @@ package com.example
 
 import com.example.ingredients._
 
-object Cooking2 {
+object Cooking {
   def makeTiramisu(
       eggs: Eggs,
       sugar1: Sugar,
