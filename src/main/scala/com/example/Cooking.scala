@@ -2,8 +2,6 @@ package com.example
 
 import java.util.concurrent.Executors
 
-import com.example.ingredients._
-
 import scala.concurrent.{ExecutionContext, Future}
 
 object Cooking {
@@ -17,7 +15,7 @@ object Cooking {
       espresso: Espresso,
       sugar2: Sugar,
       cocoa: Cocoa
-  ): Future[Mixture] = {
+  ): Future[Tiramisu] = {
     implicit val executionService: ExecutionContext =
       ExecutionContext.fromExecutor(Executors.newWorkStealingPool(2))
 
@@ -45,37 +43,49 @@ object Cooking {
     } yield refrigeratedMixture
   }
 
-  private def dissolve(sugar: Sugar, espresso: Espresso): Espresso =
-    espresso.copy(dissolvedSugar = Some(sugar))
+  private def dissolve(sugar: Sugar,
+                       espresso: Espresso): SugarDissolvedEspresso = {
+    SugarDissolvedEspresso(espresso, sugar)
+  }
 
-  private def whisk(eggs: Eggs): Mixture = Mixture(eggs)
+  private def whisk(eggs: Eggs): MixtureOfEggs = MixtureOfEggs(eggs)
 
-  private def whisk(mixture: Mixture): Mixture = mixture.copy(whisked = true)
+  private def whisk(mixture: MixtureBeatWithSugarAndWine): WhiskedMixture =
+    WhiskedMixture(mixture)
 
-  private def beat(mixture: Mixture, sugar1: Sugar, wine: Wine): Mixture =
-    mixture.copy(beatWithSugarAndWine = true,
-                 beatSugar = Some(sugar1),
-                 beatWine = Some(wine))
+  private def beat(mixture: MixtureOfEggs,
+                   sugar: Sugar,
+                   wine: Wine): MixtureBeatWithSugarAndWine =
+    MixtureBeatWithSugarAndWine(mixture, sugar, wine)
 
-  private def whip(cream: Cream): Cream = cream.copy(whipped = true)
+  private def whip(cream: Cream): WhippedCream = WhippedCream(cream)
 
-  private def beat(cheese: Cheese): Cheese = cheese.copy(beat = true)
+  private def beat(cheese: Cheese): BeatCheese = BeatCheese(cheese)
 
-  private def beat(mixture: Mixture, cheese: Cheese): Mixture =
-    mixture.copy(beatCheese = Some(cheese), beatWithCheese = true)
+  private def beat(mixture: WhiskedMixture,
+                   cheese: BeatCheese): MixtureBeatWithCheese =
+    MixtureBeatWithCheese(mixture, cheese)
 
-  private def fold(mixture: Mixture, cream: Cream): Mixture =
-    mixture.copy(foldedWithCream = true, foldedCream = Some(cream))
+  private def fold(mixture: MixtureBeatWithCheese,
+                   cream: WhippedCream): MixtureFoldedWithWhippedCream =
+    MixtureFoldedWithWhippedCream(mixture, cream)
 
-  private def soak2seconds(fingers: Fingers, espresso: Espresso): Fingers =
-    fingers.copy(soakedWithEspresso = true, espresso = Some(espresso))
+  private def soak2seconds(
+      fingers: Fingers,
+      sugarDissolvedEspresso: SugarDissolvedEspresso): EspressoSoakedFingers = {
+    EspressoSoakedFingers(sugarDissolvedEspresso, fingers)
+  }
 
-  private def assemble(mixture: Mixture, fingers: Fingers): Mixture =
-    mixture.copy(assembledWithFingers = true, assembledFingers = Some(fingers))
+  private def assemble(
+      mixtureFoldedWithWhippedCream: MixtureFoldedWithWhippedCream,
+      espressoSoakedFingers: EspressoSoakedFingers) = {
+    AssembledMixture(mixtureFoldedWithWhippedCream, espressoSoakedFingers)
+  }
 
-  private def sift(mixture: Mixture, cocoa: Cocoa): Mixture =
-    mixture.copy(cocoaSifted = true, siftedCocoa = Some(cocoa))
+  private def sift(assembledMixture: AssembledMixture,
+                   cocoa: Cocoa): CocoaSiftedMixture =
+    CocoaSiftedMixture(assembledMixture, cocoa)
 
-  private def refrigerate(mixture: Mixture): Mixture =
-    mixture.copy(refrigerated = true)
+  private def refrigerate(cocoaSiftedMixture: CocoaSiftedMixture): Tiramisu =
+    Tiramisu(cocoaSiftedMixture)
 }

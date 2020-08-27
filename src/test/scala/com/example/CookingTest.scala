@@ -1,7 +1,7 @@
 package com.example
 
-import com.example.ingredients._
 import munit.FunSuite
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class CookingTest extends FunSuite {
@@ -28,28 +28,36 @@ class CookingTest extends FunSuite {
       cocoa
     )
 
-    tiramisuF.map { tiramisu =>
-      assertEquals(tiramisu.beatWithCheese, true)
-      assertEquals(tiramisu.assembledWithFingers, true)
-      assertEquals(tiramisu.beatWithSugarAndWine, true)
-      assertEquals(tiramisu.cocoaSifted, true)
-      assertEquals(tiramisu.foldedWithCream, true)
-      assertEquals(tiramisu.whisked, true)
-      assertEquals(tiramisu.refrigerated, true)
-
-      assert(
-        tiramisu.assembledFingers.contains(
-          Fingers(soakedWithEspresso = true, Some(espresso))))
-
-      assert(tiramisu.beatCheese.contains(Cheese(beat = true)))
-
-      assert(tiramisu.beatSugar.contains(Sugar()))
-
-      assert(tiramisu.beatWine.contains(Wine()))
-
-      assert(tiramisu.foldedCream.contains(Cream(whipped = true)))
-
-      assert(tiramisu.siftedCocoa.contains(Cocoa()))
-    }
+    tiramisuF.map(
+      t =>
+        assertEquals(
+          t,
+          Tiramisu(
+            CocoaSiftedMixture(
+              AssembledMixture(
+                MixtureFoldedWithWhippedCream(
+                  MixtureBeatWithCheese(
+                    WhiskedMixture(
+                      MixtureBeatWithSugarAndWine(
+                        MixtureOfEggs(
+                          Eggs()
+                        ),
+                        Sugar(),
+                        Wine()
+                      )
+                    ),
+                    BeatCheese(Cheese())
+                  ),
+                  WhippedCream(Cream())
+                ),
+                EspressoSoakedFingers(
+                  SugarDissolvedEspresso(Espresso(), Sugar()),
+                  Fingers()
+                )
+              ),
+              Cocoa()
+            )
+          )
+      ))
   }
 }
