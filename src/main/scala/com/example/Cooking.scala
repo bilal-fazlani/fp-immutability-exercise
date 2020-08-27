@@ -1,9 +1,5 @@
 package com.example
 
-import java.util.concurrent.Executors
-
-import scala.concurrent.{ExecutionContext, Future}
-
 object Cooking {
   def makeTiramisu(
       eggs: Eggs,
@@ -15,32 +11,20 @@ object Cooking {
       espresso: Espresso,
       sugar2: Sugar,
       cocoa: Cocoa
-  ): Future[Tiramisu] = {
-    implicit val executionService: ExecutionContext =
-      ExecutionContext.fromExecutor(Executors.newWorkStealingPool(2))
-
-    val mixtureFoldedWithCreamF = Future {
-      val mixtureWithEggs       = whisk(eggs)
-      val beatWithSugarAndWine  = beat(mixtureWithEggs, sugar1, wine)
-      val whiskedMixture        = whisk(beatWithSugarAndWine)
-      val beatCheese            = beat(cheese)
-      val mixtureBeatWithCheese = beat(whiskedMixture, beatCheese)
-      val whippedCream          = whip(cream)
-      fold(mixtureBeatWithCheese, whippedCream)
-    }
-
-    val espressoSoakedFingersF = Future {
-      val sugarDissolvedEspresso = dissolve(sugar2, espresso)
-      soak2seconds(fingers, sugarDissolvedEspresso)
-    }
-
-    for {
-      mixtureFoldedWithCream <- mixtureFoldedWithCreamF
-      espressoSoakedFingers  <- espressoSoakedFingersF
-      assembledMixture        = assemble(mixtureFoldedWithCream, espressoSoakedFingers)
-      cocoaSiftedMixture      = sift(assembledMixture, cocoa)
-      refrigeratedMixture     = refrigerate(cocoaSiftedMixture)
-    } yield refrigeratedMixture
+  ): Tiramisu = {
+    val mixtureWithEggs        = whisk(eggs)
+    val beatWithSugarAndWine   = beat(mixtureWithEggs, sugar1, wine)
+    val whiskedMixture         = whisk(beatWithSugarAndWine)
+    val beatCheese             = beat(cheese)
+    val mixtureBeatWithCheese  = beat(whiskedMixture, beatCheese)
+    val whippedCream           = whip(cream)
+    val mixtureFoldedWithCream = fold(mixtureBeatWithCheese, whippedCream)
+    val sugarDissolvedEspresso = dissolve(sugar2, espresso)
+    val espressoSoakedFingers  = soak2seconds(fingers, sugarDissolvedEspresso)
+    val assembledMixture       = assemble(mixtureFoldedWithCream, espressoSoakedFingers)
+    val cocoaSiftedMixture     = sift(assembledMixture, cocoa)
+    val tiramisu               = refrigerate(cocoaSiftedMixture)
+    tiramisu
   }
 
   private def dissolve(sugar: Sugar, espresso: Espresso): SugarDissolvedEspresso = {

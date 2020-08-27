@@ -2,8 +2,6 @@ package com.example
 
 import munit.FunSuite
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 class CookingTest extends FunSuite {
   test("makeTiramisu should return Tiramisu") {
     val eggs     = Eggs()
@@ -16,7 +14,7 @@ class CookingTest extends FunSuite {
     val sugar2   = Sugar()
     val cocoa    = Cocoa()
 
-    val tiramisuF = Cooking.makeTiramisu(
+    val tiramisu = Cooking.makeTiramisu(
       eggs,
       sugar1,
       wine,
@@ -28,34 +26,32 @@ class CookingTest extends FunSuite {
       cocoa
     )
 
-    tiramisuF.map(t =>
-      assertEquals(
-        t,
-        Tiramisu(
-          CocoaSiftedMixture(
-            AssembledMixture(
-              MixtureFoldedWithWhippedCream(
-                MixtureBeatWithCheese(
-                  WhiskedMixture(
-                    MixtureBeatWithSugarAndWine(
-                      MixtureOfEggs(
-                        Eggs()
-                      ),
-                      Sugar(),
-                      Wine()
-                    )
-                  ),
-                  BeatCheese(Cheese())
+    assertEquals(
+      tiramisu,
+      Tiramisu(
+        CocoaSiftedMixture(
+          AssembledMixture(
+            MixtureFoldedWithWhippedCream(
+              MixtureBeatWithCheese(
+                WhiskedMixture(
+                  MixtureBeatWithSugarAndWine(
+                    MixtureOfEggs(
+                      Eggs()
+                    ),
+                    Sugar(),
+                    Wine()
+                  )
                 ),
-                WhippedCream(Cream())
+                BeatCheese(Cheese())
               ),
-              EspressoSoakedFingers(
-                SugarDissolvedEspresso(Espresso(), Sugar()),
-                Fingers()
-              )
+              WhippedCream(Cream())
             ),
-            Cocoa()
-          )
+            EspressoSoakedFingers(
+              SugarDissolvedEspresso(Espresso(), Sugar()),
+              Fingers()
+            )
+          ),
+          Cocoa()
         )
       )
     )
