@@ -1,7 +1,5 @@
 package com.example
 
-import com.example.ingredients._
-
 object Cooking {
   def makeTiramisu(
       eggs: Eggs,
