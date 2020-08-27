@@ -2,6 +2,7 @@ package com.example
 
 import com.example.ingredients._
 import munit.FunSuite
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class CookingTest extends FunSuite {
   test("makeTiramisu should return Tiramisu") {
@@ -15,7 +16,7 @@ class CookingTest extends FunSuite {
     val sugar2 = Sugar()
     val cocoa = Cocoa()
 
-    val tiramisu = Cooking.makeTiramisu(
+    val tiramisuF = Cooking.makeTiramisu(
       eggs,
       sugar1,
       wine,
@@ -27,26 +28,28 @@ class CookingTest extends FunSuite {
       cocoa
     )
 
-    assertEquals(tiramisu.beatWithCheese, true)
-    assertEquals(tiramisu.assembledWithFingers, true)
-    assertEquals(tiramisu.beatWithSugarAndWine, true)
-    assertEquals(tiramisu.cocoaSifted, true)
-    assertEquals(tiramisu.foldedWithCream, true)
-    assertEquals(tiramisu.whisked, true)
-    assertEquals(tiramisu.refrigerated, true)
+    tiramisuF.map { tiramisu =>
+      assertEquals(tiramisu.beatWithCheese, true)
+      assertEquals(tiramisu.assembledWithFingers, true)
+      assertEquals(tiramisu.beatWithSugarAndWine, true)
+      assertEquals(tiramisu.cocoaSifted, true)
+      assertEquals(tiramisu.foldedWithCream, true)
+      assertEquals(tiramisu.whisked, true)
+      assertEquals(tiramisu.refrigerated, true)
 
-    assert(
-      tiramisu.assembledFingers.contains(
-        Fingers(soakedWithEspresso = true, Some(espresso))))
+      assert(
+        tiramisu.assembledFingers.contains(
+          Fingers(soakedWithEspresso = true, Some(espresso))))
 
-    assert(tiramisu.beatCheese.contains(Cheese(beat = true)))
+      assert(tiramisu.beatCheese.contains(Cheese(beat = true)))
 
-    assert(tiramisu.beatSugar.contains(Sugar()))
+      assert(tiramisu.beatSugar.contains(Sugar()))
 
-    assert(tiramisu.beatWine.contains(Wine()))
+      assert(tiramisu.beatWine.contains(Wine()))
 
-    assert(tiramisu.foldedCream.contains(Cream(whipped = true)))
+      assert(tiramisu.foldedCream.contains(Cream(whipped = true)))
 
-    assert(tiramisu.siftedCocoa.contains(Cocoa()))
+      assert(tiramisu.siftedCocoa.contains(Cocoa()))
+    }
   }
 }
