@@ -4,15 +4,15 @@ import munit.FunSuite
 
 class CookingTest extends FunSuite {
   test("makeTiramisu should return Tiramisu") {
-    val eggs = new Eggs
-    val sugar1 = new Sugar
-    val wine = new Wine
-    val cheese = new Cheese
-    val cream = new Cream
-    val fingers = new Fingers
+    val eggs     = new Eggs
+    val sugar1   = new Sugar
+    val wine     = new Wine
+    val cheese   = new Cheese
+    val cream    = new Cream
+    val fingers  = new Fingers
     val espresso = new Espresso
-    val sugar2 = new Sugar
-    val cocoa = new Cocoa
+    val sugar2   = new Sugar
+    val cocoa    = new Cocoa
 
     val tiramisu = Cooking.makeTiramisu(
       eggs,
