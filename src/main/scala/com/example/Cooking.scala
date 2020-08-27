@@ -13,18 +13,18 @@ object Cooking {
       cocoa: Cocoa
   ): Mixture = {
     val sugarDissolvedEspresso = dissolve(sugar2, espresso)
-    val mixtureWithEggs = whisk(eggs)
-    val beatWithSugarAndWine = beat(mixtureWithEggs, sugar1, wine)
-    val whiskedMixture = whisk(beatWithSugarAndWine)
-    val whippedCream = whip(cream)
-    val beatCheese = beat(cheese)
-    val mixtureBeatWithCheese = beat(whiskedMixture, beatCheese)
+    val mixtureWithEggs        = whisk(eggs)
+    val beatWithSugarAndWine   = beat(mixtureWithEggs, sugar1, wine)
+    val whiskedMixture         = whisk(beatWithSugarAndWine)
+    val whippedCream           = whip(cream)
+    val beatCheese             = beat(cheese)
+    val mixtureBeatWithCheese  = beat(whiskedMixture, beatCheese)
     val mixtureFoldedWithCream = fold(mixtureBeatWithCheese, whippedCream)
-    val espressoSoakedFingers = soak2seconds(fingers, sugarDissolvedEspresso)
-    val assembledMixture =
+    val espressoSoakedFingers  = soak2seconds(fingers, sugarDissolvedEspresso)
+    val assembledMixture       =
       assemble(mixtureFoldedWithCream, espressoSoakedFingers)
-    val cocoaSiftedMixture = sift(assembledMixture, cocoa)
-    val refrigeratedMixture = refrigerate(cocoaSiftedMixture)
+    val cocoaSiftedMixture     = sift(assembledMixture, cocoa)
+    val refrigeratedMixture    = refrigerate(cocoaSiftedMixture)
     refrigeratedMixture
   }
 
@@ -36,9 +36,7 @@ object Cooking {
   private def whisk(mixture: Mixture): Mixture = mixture.copy(whisked = true)
 
   private def beat(mixture: Mixture, sugar1: Sugar, wine: Wine): Mixture =
-    mixture.copy(beatWithSugarAndWine = true,
-                 beatSugar = Some(sugar1),
-                 beatWine = Some(wine))
+    mixture.copy(beatWithSugarAndWine = true, beatSugar = Some(sugar1), beatWine = Some(wine))
 
   private def whip(cream: Cream): Cream = cream.copy(whipped = true)
 

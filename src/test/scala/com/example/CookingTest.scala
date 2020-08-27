@@ -4,15 +4,15 @@ import munit.FunSuite
 
 class CookingTest extends FunSuite {
   test("makeTiramisu should return Tiramisu") {
-    val eggs = Eggs()
-    val sugar1 = Sugar()
-    val wine = Wine()
-    val cheese = Cheese()
-    val cream = Cream()
-    val fingers = Fingers()
+    val eggs     = Eggs()
+    val sugar1   = Sugar()
+    val wine     = Wine()
+    val cheese   = Cheese()
+    val cream    = Cream()
+    val fingers  = Fingers()
     val espresso = Espresso()
-    val sugar2 = Sugar()
-    val cocoa = Cocoa()
+    val sugar2   = Sugar()
+    val cocoa    = Cocoa()
 
     val tiramisu = Cooking.makeTiramisu(
       eggs,
@@ -36,7 +36,9 @@ class CookingTest extends FunSuite {
 
     assert(
       tiramisu.assembledFingers.contains(
-        Fingers(soakedWithEspresso = true, Some(Espresso(Some(Sugar()))))))
+        Fingers(soakedWithEspresso = true, Some(Espresso(Some(Sugar()))))
+      )
+    )
 
     assert(tiramisu.beatCheese.contains(Cheese(beat = true)))
 
