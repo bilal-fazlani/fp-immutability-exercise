@@ -34,6 +34,12 @@ class CookingTest extends FunSuite {
     assertEquals(tiramisu.whisked, true)
     assertEquals(tiramisu.refrigerated, true)
 
+    assert(espresso.dissolvedSugar.contains(sugar2))
+    assert(cream.whipped)
+    assert(fingers.soakedWithEspresso)
+    assert(fingers.espresso.contains(espresso))
+    assert(cheese.beat)
+
     assert(tiramisu.assembledFingers.contains(fingers))
     assert(tiramisu.beatCheese.contains(cheese))
     assert(tiramisu.beatSugar.contains(sugar1))
