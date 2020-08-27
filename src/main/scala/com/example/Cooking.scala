@@ -12,7 +12,7 @@ object Cooking {
       sugar2: Sugar,
       cocoa: Cocoa
   ): Mixture = {
-    dissolve(sugar2, espresso)
+    val sugarDissolvedEspresso = dissolve(sugar2, espresso)
     val mixtureWithEggs = whisk(eggs)
     val beatWithSugarAndWine = beat(mixtureWithEggs, sugar1, wine)
     val whiskedMixture = whisk(beatWithSugarAndWine)
@@ -20,7 +20,7 @@ object Cooking {
     val beatCheese = beat(cheese)
     val mixtureBeatWithCheese = beat(whiskedMixture, beatCheese)
     val mixtureFoldedWithCream = fold(mixtureBeatWithCheese, whippedCream)
-    val espressoSoakedFingers = soak2seconds(fingers, espresso)
+    val espressoSoakedFingers = soak2seconds(fingers, sugarDissolvedEspresso)
     val assembledMixture =
       assemble(mixtureFoldedWithCream, espressoSoakedFingers)
     val cocoaSiftedMixture = sift(assembledMixture, cocoa)
